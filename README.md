@@ -6,28 +6,19 @@
 
 [English](#english) | [简体中文](#简体中文)
 
-## Why / What / Install
+## Overview
 
-**Why**
+A minimal global Codex pack that installs reusable rules and workflow skills into `~/.codex/`.
 
-Codex is more consistent when repeated engineering rules are installed once as global configuration and reusable skills, instead of being rewritten in every prompt.
+It gives Codex a stronger default way of working across repositories:
 
-**What**
-
-This repository is a minimal global pack for `~/.codex/`. It installs:
-
-- global dispatch rules in `~/.codex/config.toml`
-- reusable workflow skills in `~/.codex/skills/`
-
-Together they help Codex:
-
-- structure unclear tasks
+- structure unclear requests
 - inspect repositories consistently
 - bootstrap missing repo workflow files
-- choose specialized workflows for research, debugging, and safe refactors
-- report verification and residual risk instead of stopping at code output
+- route work into specialized research, debugging, and refactor skills
+- finish with verification and residual risk, not just code output
 
-**Install**
+## 30-Second Install
 
 ```bash
 git clone https://github.com/luminlee-labs/codex-harness-pack.git
@@ -36,6 +27,42 @@ rsync -a .codex/ ~/.codex/
 ```
 
 Restart Codex after syncing.
+
+## Before / After
+
+Before this pack:
+
+- Codex depends more on repeated prompt instructions
+- repository bootstrap behavior is inconsistent
+- research, debugging, and refactor flows are less reusable
+
+After this pack:
+
+- `~/.codex/config.toml` provides stable global dispatch rules
+- `~/.codex/skills/` provides reusable workflow skills
+- new or incomplete repositories can be bootstrapped into a consistent structure
+
+Typical repo bootstrap outputs:
+
+- `AGENTS.md`
+- `.codex/system-workflow.md`
+- `.codex/task-brief-template.md`
+- `.codex/exec-plan-template.md`
+- `.codex/repo-bootstrap.yaml`
+- `docs/STATUS.md`
+- `docs/` baseline folders
+
+## Typical Flow
+
+```text
+request
+  -> global config
+  -> nearest AGENTS.md
+  -> repo-bootstrap marker check
+  -> repo bootstrap if needed
+  -> specialized skill if needed
+  -> verification and risk report
+```
 
 <a id="english"></a>
 ## English
@@ -378,6 +405,64 @@ The pack currently includes five validated skills:
 
 <a id="简体中文"></a>
 ## 简体中文
+
+## 首屏摘要
+
+一个安装到 `~/.codex/` 的最小全局 Codex 包，用来提供稳定的全局规则和可复用的工作流技能。
+
+它让 Codex 在不同仓库里都更一致地工作：
+
+- 先把模糊请求结构化
+- 更稳定地检查和理解仓库
+- 在缺少 workflow 骨架时自动 bootstrap
+- 把任务路由到调研、调试、重构等专项 skill
+- 交付时附带验证和风险说明，而不只是给代码
+
+## 30 秒安装
+
+```bash
+git clone https://github.com/luminlee-labs/codex-harness-pack.git
+cd codex-harness-pack
+rsync -a .codex/ ~/.codex/
+```
+
+同步后重启 Codex。
+
+## Before / After
+
+安装前：
+
+- Codex 更依赖每次重复写 prompt
+- 仓库初始化行为不稳定
+- 调研、调试、重构流程不够可复用
+
+安装后：
+
+- `~/.codex/config.toml` 提供稳定的全局调度规则
+- `~/.codex/skills/` 提供可复用的流程型 skill
+- 新仓库或不完整仓库可以被 bootstrap 成更一致的结构
+
+典型 bootstrap 输出：
+
+- `AGENTS.md`
+- `.codex/system-workflow.md`
+- `.codex/task-brief-template.md`
+- `.codex/exec-plan-template.md`
+- `.codex/repo-bootstrap.yaml`
+- `docs/STATUS.md`
+- `docs/` 基础目录
+
+## 典型执行流
+
+```text
+request
+  -> global config
+  -> nearest AGENTS.md
+  -> repo-bootstrap marker check
+  -> repo bootstrap if needed
+  -> specialized skill if needed
+  -> verification and risk report
+```
 
 ## 为什么 / 做什么 / 怎么安装
 
