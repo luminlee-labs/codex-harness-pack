@@ -1,0 +1,4 @@
+interface:
+  display_name: "Research Before Code"
+  short_description: "Read repo knowledge, plan first, then shrink the coding surface"
+  default_prompt: "Read the repo map and relevant docs first, produce a short implementation brief or plan, and only then start coding."
