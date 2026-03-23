@@ -1,5 +1,9 @@
 # codex-harness-pack
 
+[![Repo](https://img.shields.io/badge/repo-codex--harness--pack-24292f)](https://github.com/luminlee-labs/codex-harness-pack)
+[![Codex Pack](https://img.shields.io/badge/codex-pack%201.1.0-blue)](https://github.com/luminlee-labs/codex-harness-pack)
+[![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
+
 [English](#english) | [简体中文](#简体中文)
 
 <a id="english"></a>
@@ -13,6 +17,16 @@ It intentionally ships only the portable pieces that belong in the user-level `~
 - `.codex/skills/`
 
 The goal is to make Codex behave like a reusable engineering runtime instead of a one-off prompt assistant.
+
+### Quick Start
+
+```bash
+git clone https://github.com/luminlee-labs/codex-harness-pack.git
+cd codex-harness-pack
+rsync -a .codex/ ~/.codex/
+```
+
+Restart Codex after syncing.
 
 ### Install
 
@@ -331,6 +345,16 @@ The pack currently includes five validated skills:
 
 目标是把 Codex 从“一次性 prompt 助手”变成“可复用的工程运行时”。
 
+### 快速开始
+
+```bash
+git clone https://github.com/luminlee-labs/codex-harness-pack.git
+cd codex-harness-pack
+rsync -a .codex/ ~/.codex/
+```
+
+同步后重启 Codex。
+
 ### 安装方式
 
 ```bash
@@ -632,3 +656,8 @@ bootstrap 和 skill 调度应说明：
 - `research-before-code`
 - `browser-debug`
 - `ts-refactor-safe`
+
+### 开源说明
+
+- License: [MIT](./LICENSE)
+- Contribution Guide: [CONTRIBUTING.md](./CONTRIBUTING.md)
