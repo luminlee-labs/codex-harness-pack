@@ -6,6 +6,37 @@
 
 [English](#english) | [简体中文](#简体中文)
 
+## Why / What / Install
+
+**Why**
+
+Codex is much more reliable when repeated engineering rules are installed as global behavior instead of rewritten in every prompt.
+
+**What**
+
+This repository is a minimal, portable pack for `~/.codex/`. It installs:
+
+- global dispatch rules in `~/.codex/config.toml`
+- reusable workflow skills in `~/.codex/skills/`
+
+Together they let Codex:
+
+- structure unclear tasks
+- inspect repositories consistently
+- bootstrap missing repo workflow files
+- choose specialized workflows for research, debugging, and safe refactors
+- report verification and residual risk instead of stopping at code output
+
+**Install**
+
+```bash
+git clone https://github.com/luminlee-labs/codex-harness-pack.git
+cd codex-harness-pack
+rsync -a .codex/ ~/.codex/
+```
+
+Restart Codex after syncing.
+
 <a id="english"></a>
 ## English
 
@@ -335,6 +366,37 @@ The pack currently includes five validated skills:
 
 <a id="简体中文"></a>
 ## 简体中文
+
+## 为什么 / 做什么 / 怎么安装
+
+**为什么**
+
+当一套重复出现的工程规则被安装成全局行为，而不是每次临时写在 prompt 里时，Codex 的稳定性会更高。
+
+**做什么**
+
+这个仓库是一个面向 `~/.codex/` 的最小可迁移安装包。它会安装：
+
+- `~/.codex/config.toml` 中的全局调度规则
+- `~/.codex/skills/` 中的可复用流程型技能
+
+两者配合后，Codex 可以：
+
+- 把不清晰的任务先结构化
+- 更一致地检查和理解仓库
+- 在仓库缺 workflow 基础设施时自动 bootstrap
+- 在调研、调试、重构场景下选择合适的专项流程
+- 交付时报告验证结果和残余风险，而不只是给出代码
+
+**怎么安装**
+
+```bash
+git clone https://github.com/luminlee-labs/codex-harness-pack.git
+cd codex-harness-pack
+rsync -a .codex/ ~/.codex/
+```
+
+同步后重启 Codex。
 
 `codex-harness-pack` 是一个最小化的 Codex 全局安装包。
 
