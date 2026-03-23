@@ -10,16 +10,16 @@
 
 **Why**
 
-Codex is much more reliable when repeated engineering rules are installed as global behavior instead of rewritten in every prompt.
+Codex is more consistent when repeated engineering rules are installed once as global configuration and reusable skills, instead of being rewritten in every prompt.
 
 **What**
 
-This repository is a minimal, portable pack for `~/.codex/`. It installs:
+This repository is a minimal global pack for `~/.codex/`. It installs:
 
 - global dispatch rules in `~/.codex/config.toml`
 - reusable workflow skills in `~/.codex/skills/`
 
-Together they let Codex:
+Together they help Codex:
 
 - structure unclear tasks
 - inspect repositories consistently
@@ -40,14 +40,26 @@ Restart Codex after syncing.
 <a id="english"></a>
 ## English
 
-`codex-harness-pack` is a minimal global Codex pack.
+`codex-harness-pack` is a minimal global workflow pack for Codex.
 
 It intentionally ships only the portable pieces that belong in the user-level `~/.codex/` directory:
 
 - `.codex/config.toml`
 - `.codex/skills/`
 
-The goal is to make Codex behave like a reusable engineering runtime instead of a one-off prompt assistant.
+The purpose of this repository is simple:
+
+- install stable global rules once
+- install reusable workflow skills once
+- let Codex apply the same working conventions across repositories
+
+This pack does not replace repository-specific documentation or project-specific workflow. It gives Codex a stronger global default so it can:
+
+- structure ambiguous requests
+- inspect repositories in a repeatable way
+- bootstrap missing repo workflow scaffolding when needed
+- choose specialized workflows for research, debugging, and safe refactors
+- finish with verification and risk reporting, not just generated code
 
 ### Quick Start
 
@@ -371,11 +383,11 @@ The pack currently includes five validated skills:
 
 **为什么**
 
-当一套重复出现的工程规则被安装成全局行为，而不是每次临时写在 prompt 里时，Codex 的稳定性会更高。
+当一套重复出现的工程规则被安装成全局配置和可复用 skill，而不是每次临时写在 prompt 里时，Codex 的表现会更稳定、更一致。
 
 **做什么**
 
-这个仓库是一个面向 `~/.codex/` 的最小可迁移安装包。它会安装：
+这个仓库是一个面向 `~/.codex/` 的最小全局安装包。它会安装：
 
 - `~/.codex/config.toml` 中的全局调度规则
 - `~/.codex/skills/` 中的可复用流程型技能
@@ -398,14 +410,26 @@ rsync -a .codex/ ~/.codex/
 
 同步后重启 Codex。
 
-`codex-harness-pack` 是一个最小化的 Codex 全局安装包。
+`codex-harness-pack` 是一个最小化的 Codex 全局工作流安装包。
 
 它只保留应该放在用户级 `~/.codex/` 目录中的可迁移内容：
 
 - `.codex/config.toml`
 - `.codex/skills/`
 
-目标是把 Codex 从“一次性 prompt 助手”变成“可复用的工程运行时”。
+这个仓库的目的很简单：
+
+- 把稳定的全局规则安装一次
+- 把可复用的流程型 skill 安装一次
+- 让 Codex 在不同仓库里都遵循同一套工作方式
+
+它不是用来替代仓库自己的文档或项目特定流程，而是给 Codex 一个更强的全局默认行为，让它能够：
+
+- 先把模糊任务结构化
+- 更一致地理解和检查仓库
+- 在仓库缺少 workflow 骨架时自动 bootstrap
+- 在调研、调试、重构场景下选择正确的专项 skill
+- 交付时附带验证结果和风险说明，而不只是生成代码
 
 ### 快速开始
 
