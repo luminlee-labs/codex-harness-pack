@@ -1,0 +1,4 @@
+interface:
+  display_name: "TS Refactor Safe"
+  short_description: "Refactor TypeScript with explicit boundaries and safety checks"
+  default_prompt: "Map the TypeScript boundary first, make a scoped refactor, run verification, and report breaking-risk areas."

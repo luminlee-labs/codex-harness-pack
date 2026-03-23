@@ -1,0 +1,4 @@
+interface:
+  display_name: "Browser Debug"
+  short_description: "Debug browser issues with reproduce-evidence-fix-verify workflow"
+  default_prompt: "Reproduce the browser or frontend issue, capture evidence, apply the smallest verifiable fix, rerun the flow, and report root cause plus residual risk."

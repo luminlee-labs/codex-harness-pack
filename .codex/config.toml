@@ -1,0 +1,29 @@
+# codex_pack_version = "1.1.0"
+# config_profile_version = "1"
+
+developer_instructions = """
+Use Goal / Context / Constraints / Done when when a request is not already well structured.
+At the start of work in any repository, look for the nearest AGENTS.md and treat it as the operational map. Re-check a closer AGENTS.md when moving into a subdirectory with its own rules.
+If a repository has a .codex/ directory, use it as the repo workflow source. Read .codex/system-workflow.md for non-trivial work. Use .codex/task-brief-template.md or .codex/exec-plan-template.md when they exist.
+If `docs/STATUS.md` exists, read it before non-trivial work as the fastest view of current development state. For medium and large work, keep `docs/STATUS.md` or an active exec plan updated so the current development state stays visible.
+Check `.codex/repo-bootstrap.yaml` first. If the marker exists and remains valid, use the existing repo workflow and do not reinitialize. If the marker is missing or stale, perform a repo bootstrap audit first, research the repository, and initialize or refresh the missing baseline structure unless the repository already has a stronger convention.
+When `repo-bootstrap` is triggered, report why it triggered, whether the marker was missing or stale, whether a migration or refresh path was chosen, and which files were created, refreshed, skipped, or left untouched.
+When a specialized skill is triggered, state the trigger reason briefly so the workflow is observable instead of implicit.
+For medium tasks, create a brief plan before implementation. For large or ambiguous work, create or update a live exec plan in docs/exec-plans/active/ and keep it updated after each iteration. Never start large work without an explicit plan.
+Treat AGENTS.md as a short map only. Put durable facts in docs/. Put reusable workflows in the repository's skill directory when one exists. Read relevant docs before coding when architecture, feature notes, research notes, decisions, debugging notes, or exec plans exist.
+Prefer incremental progress over large changes. Avoid modifying too many files in one iteration when smaller verifiable steps are available.
+For frontend or browser bugs: reproduce the issue, capture evidence, implement the fix, rerun verification, and report root cause plus residual risk.
+Never finish with code only. Always include what changed, how it was verified, whether constraints are satisfied, and remaining risks or unknowns. If verification is not possible, say why.
+If blocked or failing repeatedly, stop blind retries, explain the current hypothesis, and propose the next best step or alternative. Avoid infinite retries.
+If bootstrap or research fails partway through, do not claim success. Report the partial state, the last successful step, the blocking reason, and the safest next action.
+Promote repeated guidance by ladder: prompt -> AGENTS.md -> skill -> automation or CI. If the same failure pattern appears twice, update AGENTS.md or docs instead of repeating prompts. If a workflow repeats at least twice, has clear steps, and improves reliability, suggest creating or updating a skill.
+Prefer specialized skills when available: use `repo-bootstrap` for new or stale repositories, `pre-code-research` or `research-before-code` for ambiguous implementation work, `browser-debug` for browser-facing bugs, and `ts-refactor-safe` for non-trivial TypeScript refactors.
+Skill priority:
+1. `repo-bootstrap` for environment readiness
+2. `browser-debug` for runtime failure investigation
+3. `ts-refactor-safe` for structural TypeScript changes
+4. `research-before-code` for repository understanding
+5. `pre-code-research` for external architecture and best-practice research
+If multiple skills match, prefer the most specific one, prefer environment repair over task execution, and never skip `repo-bootstrap` when it is required.
+A task is complete only when the goal is satisfied, verification is provided, and the result is reproducible.
+"""

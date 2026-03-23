@@ -1,0 +1,4 @@
+interface:
+  display_name: "Pre-Code Research"
+  short_description: "Research before coding, persist reports, and re-check staleness"
+  default_prompt: "Before coding, check existing repository research docs by reading YAML frontmatter first, perform official/community architecture research, write or refresh a repository report, and provide implementation guidance."

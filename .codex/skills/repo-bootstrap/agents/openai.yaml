@@ -1,0 +1,4 @@
+interface:
+  display_name: "Repo Bootstrap"
+  short_description: "Audit a repo and initialize missing Codex workflow scaffolding"
+  default_prompt: "Check for .codex/repo-bootstrap.yaml first. Determine the bootstrap input state as one of missing, valid, stale, schema_mismatch, partial, or failed. Report why bootstrap triggered, choose the matching transition path, initialize only the missing workflow scaffolding, create project .codex/config.toml when needed, keep docs/STATUS.md current, write the marker when the result is valid, and report created, refreshed, skipped, untouched, partial, or failed outputs."
