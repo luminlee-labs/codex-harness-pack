@@ -1,0 +1,6 @@
+interface:
+  display_name: "Repo Bootstrap"
+  short_description: "Audit and initialize repository workflow scaffolding for Codex. Use when a repo is new or missing .codex/repo-bootstrap.yaml."
+
+policy:
+  allow_implicit_invocation: false

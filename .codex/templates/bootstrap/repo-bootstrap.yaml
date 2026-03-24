@@ -1,0 +1,26 @@
+pack_version: "1.1.0"
+marker_schema_version: "2"
+bootstrap_version: "2"
+last_input_state: "missing"
+last_transition: "initialize"
+last_trigger_reason: "initial bootstrap"
+initialized_at: "YYYY-MM-DD"
+last_audited_at: "YYYY-MM-DD"
+last_migration_at: "YYYY-MM-DD"
+migration_strategy: "safe-refresh"
+repo_type: "single-app"
+stack:
+  - "replace-with-detected-stack"
+package_manager: "replace-with-detected-package-manager"
+docs_layout:
+  - "docs/code_review"
+  - "docs/PLANS"
+initialized_skills:
+  - "replace-with-initialized-repo-skills"
+required_files:
+  - "AGENTS.md"
+  - ".codex/config.toml"
+  - ".codex/repo-bootstrap.yaml"
+  - "docs/code_review.md"
+  - "docs/PLANS.md"
+status: "success"

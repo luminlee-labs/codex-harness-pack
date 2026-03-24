@@ -1,22 +1,30 @@
 # codex-harness-pack
 
 [![Repo](https://img.shields.io/badge/repo-codex--harness--pack-24292f)](https://github.com/luminlee-labs/codex-harness-pack)
-[![Codex Pack](https://img.shields.io/badge/codex-pack%201.1.0-blue)](https://github.com/luminlee-labs/codex-harness-pack)
+[![Codex Pack](https://img.shields.io/badge/codex-pack%201.2.0-blue)](https://github.com/luminlee-labs/codex-harness-pack)
 [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 
 [English](#english) | [简体中文](#简体中文)
 
 ## Overview
 
-A minimal global Codex pack that installs reusable rules and workflow skills into `~/.codex/`.
+`codex-harness-pack` is an **official-aligned Codex workflow pack**.
 
-It gives Codex a stronger default way of working across repositories:
+It aligns with OpenAI’s current layering model:
 
-- structure unclear requests
-- inspect repositories consistently
-- bootstrap missing repo workflow files
-- route work into specialized research, debugging, and refactor skills
-- finish with verification and residual risk, not just code output
+- `~/.codex/config.toml` for user-level configuration
+- `~/.codex/AGENTS.md` for durable global guidance
+- `.codex/config.toml` for repo-level overrides
+- `$HOME/.agents/skills` and `$REPO_ROOT/.agents/skills` for skills discovery
+- layered `AGENTS.md` / `AGENTS.override.md` for directory-level rules
+
+References:
+
+- [Codex Config Basics](https://developers.openai.com/codex/config-basic)
+- [Custom instructions with AGENTS.md](https://developers.openai.com/codex/guides/agents-md)
+- [Codex Skills](https://developers.openai.com/codex/skills)
+- [Customization](https://developers.openai.com/codex/concepts/customization)
+- [Workflows](https://developers.openai.com/codex/workflows)
 
 ## 30-Second Install
 
@@ -24,811 +32,102 @@ It gives Codex a stronger default way of working across repositories:
 git clone https://github.com/luminlee-labs/codex-harness-pack.git
 cd codex-harness-pack
 rsync -a .codex/ ~/.codex/
+rsync -a .agents/skills/ ~/.agents/skills/
 ```
 
 Restart Codex after syncing.
 
-## Before / After
+## What this pack installs
 
-Before this pack:
+- `~/.codex/config.toml`
+- `~/.codex/AGENTS.md`
+- `~/.agents/skills/*`
 
-- Codex depends more on repeated prompt instructions
-- repository bootstrap behavior is inconsistent
-- research, debugging, and refactor flows are less reusable
+### Repo bootstrap templates
 
-After this pack:
+- `.codex/templates/repo/AGENTS.md`
+- `.codex/templates/repo/.codex/config.toml`
+- `.codex/templates/repo/docs/code_review.md`
+- `.codex/templates/repo/docs/PLANS.md`
+- `.codex/templates/bootstrap/repo-bootstrap.yaml`
 
-- `~/.codex/config.toml` provides stable global dispatch rules
-- `~/.codex/skills/` provides reusable workflow skills
-- new or incomplete repositories can be bootstrapped into a consistent structure
+## What this pack is not
 
-Typical repo bootstrap outputs:
+- Not a runtime bundle
+- Not an execution engine
+- Not a replacement for repo-specific docs
 
-- `AGENTS.md`
-- `.codex/system-workflow.md`
-- `.codex/task-brief-template.md`
-- `.codex/exec-plan-template.md`
-- `.codex/repo-bootstrap.yaml`
-- `docs/STATUS.md`
-- `docs/` baseline folders
+It is a workflow/guidance/skills layer that helps Codex follow:
 
-## Typical Flow
+- plan-first execution
+- test/check/review discipline
+- minimal bootstrap scaffold by default
 
-```text
-request
-  -> global config
-  -> nearest AGENTS.md
-  -> repo-bootstrap marker check
-  -> repo bootstrap if needed
-  -> specialized skill if needed
-  -> verification and risk report
-```
+## Skills included
+
+- `repo-bootstrap` (heavyweight, explicit by default)
+- `pre-code-research` (heavyweight, explicit by default)
+- `research-before-code`
+- `browser-debug`
+- `ts-refactor-safe`
+
+Each skill includes `agents/openai.yaml` metadata and invocation policy.
+
+## Compatibility note
+
+`.codex/skills/` is kept as a **deprecated compatibility layer** for now.
+
+Primary discovery path is now:
+
+- Repo: `$REPO_ROOT/.agents/skills`
+- User: `$HOME/.agents/skills`
+
+In the next major version, deprecated `.codex/skills/` may be removed.
+
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md).
+
+---
 
 <a id="english"></a>
 ## English
 
-`codex-harness-pack` is a minimal global workflow pack for Codex.
-
-It intentionally ships only the portable pieces that belong in the user-level `~/.codex/` directory:
-
-- `.codex/config.toml`
-- `.codex/skills/`
-
-The purpose of this repository is simple:
-
-- install stable global rules once
-- install reusable workflow skills once
-- let Codex apply the same working conventions across repositories
-
-This pack does not replace repository-specific documentation or project-specific workflow. It gives Codex a stronger global default so it can:
-
-- structure ambiguous requests
-- inspect repositories in a repeatable way
-- bootstrap missing repo workflow scaffolding when needed
-- choose specialized workflows for research, debugging, and safe refactors
-- finish with verification and risk reporting, not just generated code
-
-### Quick Start
-
-```bash
-git clone https://github.com/luminlee-labs/codex-harness-pack.git
-cd codex-harness-pack
-rsync -a .codex/ ~/.codex/
-```
-
-Restart Codex after syncing.
-
-### Install
-
-```bash
-rsync -a .codex/ ~/.codex/
-```
-
-Restart Codex after syncing.
-
-### What This Pack Installs
-
-This pack is intentionally small:
-
-- `~/.codex/config.toml`
-  - global routing and completion rules
-- `~/.codex/skills/`
-  - reusable workflow skills
-
-It does not manage runtime-only files such as auth, session history, logs, sqlite state, or cache files.
-
-### Core Model
-
-This pack uses a two-layer model:
-
-1. `~/.codex/config.toml`
-   - acts as the global dispatcher
-   - decides when to structure the task
-   - decides when to inspect a repository
-   - decides when to trigger a specialized skill
-
-2. `~/.codex/skills/`
-   - contains the workflow implementations
-   - each skill handles one repeatable engineering pattern
-
-In short:
-
-- `config.toml` defines global behavior
-- `skills/` defines reusable execution paths
-
-### Global Dispatch Logic
-
-The global `developer_instructions` are designed around these rules:
-
-1. If a request is not well structured, normalize it into:
-   - `Goal`
-   - `Context`
-   - `Constraints`
-   - `Done when`
-
-2. When entering a repository:
-   - read the nearest `AGENTS.md`
-   - if `.codex/` exists, treat it as the repo workflow source
-
-3. Before non-trivial work:
-   - check `.codex/repo-bootstrap.yaml`
-   - if the marker is valid, reuse the repo workflow
-   - if the marker is missing or stale, trigger `repo-bootstrap`
-
-4. Task sizing:
-   - small work: execute directly
-   - medium work: write a brief plan first
-   - large or ambiguous work: use a live exec plan
-
-5. Completion:
-   - never finish with code only
-   - always report changes, verification, constraint status, and residual risk
-
-### Skill Priority
-
-If multiple skills match, use this priority:
-
-1. `repo-bootstrap`
-2. `browser-debug`
-3. `ts-refactor-safe`
-4. `research-before-code`
-5. `pre-code-research`
-
-Dispatch rules:
-
-- prefer the most specific skill
-- prefer environment repair before task execution
-- never skip `repo-bootstrap` when bootstrap is required
-
-### Included Skills
-
-#### `repo-bootstrap`
-
-Use for:
-
-- new repositories
-- missing `.codex/repo-bootstrap.yaml`
-- stale repo bootstrap marker
-- missing baseline repo workflow files
-
-What it does:
-
-- audits the repository first
-- detects stack and conventions
-- initializes or refreshes repo-level workflow files
-- writes back `.codex/repo-bootstrap.yaml`
-
-Typical outputs:
-
-- `AGENTS.md`
-- `.codex/config.toml`
-- `.codex/system-workflow.md`
-- `.codex/task-brief-template.md`
-- `.codex/exec-plan-template.md`
-- `docs/`
-- optional repo-level skill directories
-- `.codex/repo-bootstrap.yaml`
-
-#### `pre-code-research`
-
-Use for:
-
-- architecture-first implementation work
-- multi-framework or uncertain technical choices
-- large refactors
-- explicit “research before coding” requests
-
-What it does:
-
-- gathers official guidance first
-- adds community practice and pitfalls
-- compares implementation paths
-- persists findings back into the repository
-
-#### `research-before-code`
-
-Use for:
-
-- unfamiliar repositories
-- ambiguous tasks
-- work that requires reading existing docs, decisions, and implementation paths first
-
-What it does:
-
-- reads repo guidance and existing code paths
-- reduces ambiguity
-- produces a brief or plan before coding
-
-#### `browser-debug`
-
-Use for:
-
-- broken pages
-- failed interactions
-- console errors
-- network failures
-- runtime or hydration issues
-- browser-facing regressions
-
-Loop:
-
-- reproduce
-- capture evidence
-- fix
-- verify
-
-#### `ts-refactor-safe`
-
-Use for:
-
-- non-trivial TypeScript or TSX refactors
-- public interface changes
-- type-boundary changes
-- module moves or import rewrites
-
-What it does:
-
-- maps boundaries first
-- limits blast radius
-- performs scoped refactors
-- verifies after changes
-
-### Typical Execution Flow
-
-In a new repository, the expected sequence is:
-
-1. load global `developer_instructions`
-2. read the nearest `AGENTS.md`
-3. inspect `.codex/repo-bootstrap.yaml`
-4. trigger `repo-bootstrap` if required
-5. continue task work
-6. trigger another skill only if the task needs it
-
-### Versioning
-
-This pack includes a minimal version model:
-
-- pack version
-  - currently `1.1.0`
-  - stored in `.codex/config.toml` comments
-  - also written to repo bootstrap markers as `pack_version`
-- skill version
-  - each skill uses `metadata.version: "1.1.0"`
-- bootstrap and marker version
-  - `bootstrap_version`
-  - `marker_schema_version`
-
-### Migration Strategy
-
-`repo-bootstrap` uses:
-
-- `migration_strategy: safe-refresh`
-
-Meaning:
-
-- prefer incremental refresh
-- prefer filling gaps over reinitializing everything
-- prefer updating managed scaffolding only
-- avoid overwriting stronger existing conventions
-
-### Bootstrap State Machine
-
-`repo-bootstrap` uses an explicit state machine.
-
-Input states:
-
-- `missing`
-- `valid`
-- `stale`
-- `schema_mismatch`
-- `partial`
-- `failed`
-
-Transitions:
-
-- `missing -> initialize`
-- `valid -> skip`
-- `stale -> refresh`
-- `schema_mismatch -> migrate`
-- `partial -> repair`
-- `failed -> retry_safe`
-
-Output statuses:
-
-- `success`
-- `partial`
-- `failed`
-
-### Idempotency
-
-Bootstrap is intended to be safe to rerun:
-
-- valid marker: no-op
-- partial repo setup: fill only missing or stale pieces
-- do not duplicate scaffolding
-- do not overwrite stronger repo conventions by default
-
-### Observability
-
-Bootstrap and skill dispatch should explain:
-
-- why the skill triggered
-- current marker state
-- chosen path:
-  - `skip`
-  - `initialize`
-  - `refresh`
-  - `migrate`
-  - `repair`
-  - `retry_safe`
-- what was created
-- what was refreshed
-- what was skipped
-- what was left untouched
-
-### Development Status Document
-
-This pack includes a default repo status document through bootstrap:
-
-- `docs/STATUS.md`
-
-Its purpose is to make current development state visible at a glance.
-
-Recommended fields:
-
-- `Current Phase`
-- `Current Focus`
-- `Last Completed`
-- `Next Step`
-- `Blockers`
-- `Last Updated`
-
-### Failure Handling
-
-Minimal failure policy:
-
-- if repository research is incomplete, fall back to the smallest neutral scaffold and state assumptions explicitly
-- if bootstrap fails halfway, do not report success
-- partial failures should use `status: partial` or `status: failed`
-
-### Validation
-
-The pack currently includes five validated skills:
-
-- `repo-bootstrap`
-- `pre-code-research`
-- `research-before-code`
-- `browser-debug`
-- `ts-refactor-safe`
-
----
+This repository provides an OpenAI-official-aligned Codex workflow pack.
+
+Core principles:
+
+- Config belongs in `config.toml`
+- Durable guidance belongs in `AGENTS.md`
+- Reusable workflows belong in skills
+- Complex work should be planned first
+- Code changes should include test/check/review evidence
+
+For official references, use:
+
+- [https://developers.openai.com/codex](https://developers.openai.com/codex)
+- [https://developers.openai.com/codex/config-basic](https://developers.openai.com/codex/config-basic)
+- [https://developers.openai.com/codex/guides/agents-md](https://developers.openai.com/codex/guides/agents-md)
+- [https://developers.openai.com/codex/skills](https://developers.openai.com/codex/skills)
+- [https://developers.openai.com/codex/workflows](https://developers.openai.com/codex/workflows)
 
 <a id="简体中文"></a>
 ## 简体中文
 
-## 首屏摘要
-
-一个安装到 `~/.codex/` 的最小全局 Codex 包，用来提供稳定的全局规则和可复用的工作流技能。
-
-它让 Codex 在不同仓库里都更一致地工作：
-
-- 先把模糊请求结构化
-- 更稳定地检查和理解仓库
-- 在缺少 workflow 骨架时自动 bootstrap
-- 把任务路由到调研、调试、重构等专项 skill
-- 交付时附带验证和风险说明，而不只是给代码
-
-## 30 秒安装
-
-```bash
-git clone https://github.com/luminlee-labs/codex-harness-pack.git
-cd codex-harness-pack
-rsync -a .codex/ ~/.codex/
-```
-
-同步后重启 Codex。
-
-## Before / After
-
-安装前：
-
-- Codex 更依赖每次重复写 prompt
-- 仓库初始化行为不稳定
-- 调研、调试、重构流程不够可复用
-
-安装后：
-
-- `~/.codex/config.toml` 提供稳定的全局调度规则
-- `~/.codex/skills/` 提供可复用的流程型 skill
-- 新仓库或不完整仓库可以被 bootstrap 成更一致的结构
-
-典型 bootstrap 输出：
-
-- `AGENTS.md`
-- `.codex/system-workflow.md`
-- `.codex/task-brief-template.md`
-- `.codex/exec-plan-template.md`
-- `.codex/repo-bootstrap.yaml`
-- `docs/STATUS.md`
-- `docs/` 基础目录
-
-## 典型执行流
-
-```text
-request
-  -> global config
-  -> nearest AGENTS.md
-  -> repo-bootstrap marker check
-  -> repo bootstrap if needed
-  -> specialized skill if needed
-  -> verification and risk report
-```
-
-## 为什么 / 做什么 / 怎么安装
-
-**为什么**
-
-当一套重复出现的工程规则被安装成全局配置和可复用 skill，而不是每次临时写在 prompt 里时，Codex 的表现会更稳定、更一致。
-
-**做什么**
-
-这个仓库是一个面向 `~/.codex/` 的最小全局安装包。它会安装：
-
-- `~/.codex/config.toml` 中的全局调度规则
-- `~/.codex/skills/` 中的可复用流程型技能
-
-两者配合后，Codex 可以：
-
-- 把不清晰的任务先结构化
-- 更一致地检查和理解仓库
-- 在仓库缺 workflow 基础设施时自动 bootstrap
-- 在调研、调试、重构场景下选择合适的专项流程
-- 交付时报告验证结果和残余风险，而不只是给出代码
-
-**怎么安装**
-
-```bash
-git clone https://github.com/luminlee-labs/codex-harness-pack.git
-cd codex-harness-pack
-rsync -a .codex/ ~/.codex/
-```
-
-同步后重启 Codex。
-
-`codex-harness-pack` 是一个最小化的 Codex 全局工作流安装包。
-
-它只保留应该放在用户级 `~/.codex/` 目录中的可迁移内容：
-
-- `.codex/config.toml`
-- `.codex/skills/`
-
-这个仓库的目的很简单：
-
-- 把稳定的全局规则安装一次
-- 把可复用的流程型 skill 安装一次
-- 让 Codex 在不同仓库里都遵循同一套工作方式
-
-它不是用来替代仓库自己的文档或项目特定流程，而是给 Codex 一个更强的全局默认行为，让它能够：
-
-- 先把模糊任务结构化
-- 更一致地理解和检查仓库
-- 在仓库缺少 workflow 骨架时自动 bootstrap
-- 在调研、调试、重构场景下选择正确的专项 skill
-- 交付时附带验证结果和风险说明，而不只是生成代码
-
-### 快速开始
-
-```bash
-git clone https://github.com/luminlee-labs/codex-harness-pack.git
-cd codex-harness-pack
-rsync -a .codex/ ~/.codex/
-```
-
-同步后重启 Codex。
-
-### 安装方式
-
-```bash
-rsync -a .codex/ ~/.codex/
-```
-
-同步后重启 Codex。
-
-### 这个包实际安装什么
-
-这个包刻意只安装两类内容：
-
-- `~/.codex/config.toml`
-  - 负责全局调度和完成标准
-- `~/.codex/skills/`
-  - 负责可复用的流程型能力
-
-它不会管理这些运行态文件：
-
-- 认证文件
-- 会话历史
-- 日志
-- sqlite 状态
-- 各类缓存
-
-### 核心模型
-
-整个系统分两层：
-
-1. `~/.codex/config.toml`
-   - 充当全局调度器
-   - 决定什么时候先补任务结构
-   - 决定什么时候先看仓库
-   - 决定什么时候触发某个 skill
-
-2. `~/.codex/skills/`
-   - 放工作流实现
-   - 每个 skill 负责一个稳定、可重复的工程模式
-
-也就是说：
-
-- `config.toml` 定义全局行为
-- `skills/` 定义可复用执行路径
-
-### 全局调度逻辑
-
-当前 `developer_instructions` 的核心规则是：
-
-1. 如果用户请求不够结构化，先补成：
-   - `Goal`
-   - `Context`
-   - `Constraints`
-   - `Done when`
-
-2. 进入仓库时：
-   - 先找最近的 `AGENTS.md`
-   - 如果有 `.codex/`，把它当作 repo workflow source
-
-3. 开始非 trivial 工作前：
-   - 检查 `.codex/repo-bootstrap.yaml`
-   - marker 有效则复用现有仓库工作流
-   - marker 缺失或 stale 则触发 `repo-bootstrap`
-
-4. 任务分级：
-   - 小任务：直接做
-   - 中任务：先写 brief 或 plan
-   - 大任务或模糊任务：先写 live exec plan
-
-5. 完成标准：
-   - 不能只交代码
-   - 必须说明改了什么、如何验证、约束是否满足、残余风险是什么
-
-### Skill 优先级
-
-如果多个 skill 同时匹配，按以下优先级：
-
-1. `repo-bootstrap`
-2. `browser-debug`
-3. `ts-refactor-safe`
-4. `research-before-code`
-5. `pre-code-research`
-
-调度规则：
-
-- 优先最具体的 skill
-- 优先环境修复，再执行任务
-- 当必须 bootstrap 时，不能跳过 `repo-bootstrap`
-
-### 内置 Skills
-
-#### `repo-bootstrap`
-
-适用场景：
-
-- 新仓库
-- `.codex/repo-bootstrap.yaml` 缺失
-- bootstrap marker 已过期
-- 仓库缺基础 workflow 文件
-
-它会：
-
-- 先审计仓库
-- 识别技术栈与现有约定
-- 初始化或刷新 repo 级工作流文件
-- 写回 `.codex/repo-bootstrap.yaml`
-
-典型输出：
-
-- `AGENTS.md`
-- `.codex/config.toml`
-- `.codex/system-workflow.md`
-- `.codex/task-brief-template.md`
-- `.codex/exec-plan-template.md`
-- `docs/`
-- 必要时 repo-level skills
-- `.codex/repo-bootstrap.yaml`
-
-#### `pre-code-research`
-
-适用场景：
-
-- 架构优先的实现任务
-- 多框架或技术选型不明确
-- 大改动或重构
-- 明确要求“先调研再写代码”
-
-它会：
-
-- 先查官方资料
-- 再补社区实践和坑点
-- 对比不同实现路径
-- 把研究结果落回仓库
-
-#### `research-before-code`
-
-适用场景：
-
-- 面对陌生仓库
-- 任务比较模糊
-- 需要先读已有 docs、决策和代码路径
-
-它会：
-
-- 先看 repo 指南和相关实现
-- 收缩问题范围
-- 先形成 brief 或 plan，再编码
-
-#### `browser-debug`
-
-适用场景：
-
-- 页面打不开
-- 交互失效
-- console 报错
-- network 异常
-- 浏览器侧运行时或 hydration 问题
-
-执行闭环：
-
-- reproduce
-- capture evidence
-- fix
-- verify
-
-#### `ts-refactor-safe`
-
-适用场景：
-
-- 非 trivial 的 TypeScript / TSX 重构
-- public interface 变更
-- 类型边界调整
-- 模块移动或 import 批量重写
-
-它会：
-
-- 先找边界
-- 限制 blast radius
-- 做 scoped refactor
-- 修改后跑验证
-
-### 典型执行链路
-
-一个新仓库中的标准流程应该是：
-
-1. 读取全局 `developer_instructions`
-2. 找最近的 `AGENTS.md`
-3. 检查 `.codex/repo-bootstrap.yaml`
-4. 如果需要，触发 `repo-bootstrap`
-5. 再继续具体任务
-6. 如果任务需要，再触发其他专项 skill
-
-### 版本体系
-
-当前使用最小版本模型：
-
-- pack 版本
-  - 当前为 `1.1.0`
-  - 写在 `.codex/config.toml` 的注释里
-  - 也会写入 bootstrap marker 的 `pack_version`
-- skill 版本
-  - 每个 skill 使用 `metadata.version: "1.1.0"`
-- bootstrap / marker 版本
-  - `bootstrap_version`
-  - `marker_schema_version`
-
-### 迁移策略
-
-`repo-bootstrap` 当前采用：
-
-- `migration_strategy: safe-refresh`
-
-意思是：
-
-- 优先增量刷新
-- 优先补缺失项
-- 优先更新受管骨架
-- 默认不粗暴覆盖已有更强约定
-
-### Bootstrap 状态机
-
-`repo-bootstrap` 使用显式状态机。
-
-输入状态：
-
-- `missing`
-- `valid`
-- `stale`
-- `schema_mismatch`
-- `partial`
-- `failed`
-
-状态迁移：
-
-- `missing -> initialize`
-- `valid -> skip`
-- `stale -> refresh`
-- `schema_mismatch -> migrate`
-- `partial -> repair`
-- `failed -> retry_safe`
-
-输出状态：
-
-- `success`
-- `partial`
-- `failed`
-
-### 幂等性
-
-bootstrap 默认应可安全重复执行：
-
-- marker 有效时：no-op
-- 仓库部分初始化时：只补缺失项或刷新 stale 项
-- 不重复造骨架
-- 默认不覆盖已有更强 repo 约定
-
-### 可观测性
-
-bootstrap 和 skill 调度应说明：
-
-- 为什么触发
-- marker 当前状态
-- 本次走了哪条路径
-- 新建了什么
-- 刷新了什么
-- 跳过了什么
-- 保持不动的是什么
-
-### 开发状态文档
-
-这个包通过 bootstrap 默认生成：
-
-- `docs/STATUS.md`
-
-它用于让人“一眼看出当前开发状态”。
-
-建议字段：
-
-- `Current Phase`
-- `Current Focus`
-- `Last Completed`
-- `Next Step`
-- `Blockers`
-- `Last Updated`
-
-### 失败兜底
-
-最小失败策略：
-
-- 仓库调研不完整时，退回到最小中性骨架，并明确写出假设
-- bootstrap 半途失败时，不能宣称成功
-- 部分失败应写成 `status: partial` 或 `status: failed`
-
-### 当前校验结果
-
-当前包内 5 个 skill 已通过校验：
-
-- `repo-bootstrap`
-- `pre-code-research`
-- `research-before-code`
-- `browser-debug`
-- `ts-refactor-safe`
-
-### 开源说明
-
-- License: [MIT](./LICENSE)
-- Contribution Guide: [CONTRIBUTING.md](./CONTRIBUTING.md)
+这个仓库是一个与 OpenAI 官方分层对齐的 Codex workflow pack。
+
+核心原则：
+
+- 配置放在 `config.toml`
+- 持久约定放在 `AGENTS.md`
+- 可复用流程放在 skills
+- 复杂任务先做计划
+- 代码变更必须配测试/检查/review 证据
+
+官方文档：
+
+- [Codex 首页](https://developers.openai.com/codex)
+- [Config Basics](https://developers.openai.com/codex/config-basic)
+- [AGENTS.md 指南](https://developers.openai.com/codex/guides/agents-md)
+- [Skills 指南](https://developers.openai.com/codex/skills)
+- [Workflows 指南](https://developers.openai.com/codex/workflows)
