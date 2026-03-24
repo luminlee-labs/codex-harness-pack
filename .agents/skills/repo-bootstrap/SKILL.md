@@ -1,7 +1,7 @@
 ---
 name: repo-bootstrap
 metadata:
-  version: "1.1.0"
+  version: "1.2.0"
 description: Audit, research, and initialize minimal repository workflow scaffolding for Codex-driven development. Use when starting work in a new repository, when `.codex/repo-bootstrap.yaml` is missing or stale, or when repo-level Codex baseline files are missing.
 ---
 

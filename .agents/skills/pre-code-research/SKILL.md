@@ -1,7 +1,7 @@
 ---
 name: pre-code-research
 metadata:
-  version: "1.1.0"
+  version: "1.2.0"
 description: Perform architecture-first technical research before implementation and persist findings in the repository. Use when coding tasks involve multiple frameworks, unclear technical choices, large refactors, new system design, production-risk decisions, or explicit requests such as "先调研再写代码", "技术方案分析", "架构评估", "best practice", or "pitfalls". Apply to AI and non-AI projects. Re-check existing research docs periodically and treat YAML frontmatter as the first-pass summary.
 ---
 

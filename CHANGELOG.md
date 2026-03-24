@@ -24,9 +24,10 @@ This release aligns the pack with OpenAI's official Codex layering model. Core d
 
 ### Changed
 
-- **`config.toml`** slimmed to contain only config values: `model`, `approval_policy`, `sandbox_mode`, `web_search`, `personality`, and `project_doc_fallback_filenames`.
+- **`config.toml`** slimmed to contain only core config values such as `model`, `approval_policy`, `sandbox_mode`, `web_search`, and `personality`.
 - **`repo-bootstrap` SKILL.md** rewritten with minimal scaffold as default behavior, clear template source paths (`.codex/templates/repo/`), and trimmed verbose sections.
 - **`README.md`** rewritten with official-aligned positioning. Install command updated to dual-path (`rsync` for both `.codex/` and `.agents/skills/`). Added "what it installs / what it is not / official references" structure.
+- **Bootstrap templates and compatibility copies** aligned to the minimal scaffold policy. Repo-level `config.toml` templates no longer carry workflow instructions, deprecated `.codex/skills/*` copies now include redirect notes, and old heavy bootstrap references were removed from compatibility assets.
 
 ### Skill invocation policy
 

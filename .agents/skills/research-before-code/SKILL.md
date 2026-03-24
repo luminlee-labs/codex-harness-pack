@@ -1,7 +1,7 @@
 ---
 name: research-before-code
 metadata:
-  version: "1.1.0"
+  version: "1.2.0"
 description: Research the repository, existing docs, prior decisions, and relevant implementation paths before coding. Use when a task is new, ambiguous, spans multiple files or layers, touches unfamiliar modules, requires architecture decisions, or the user explicitly asks to plan, investigate, or "先调研再写代码".
 ---
 
@@ -15,8 +15,8 @@ Reduce implementation mistakes by turning ambiguous work into a repo-aware brief
 
 1. Read the repo map first.
 - Start with the nearest `AGENTS.md`.
-- For non-trivial work, read `.codex/system-workflow.md`.
-- Use `.codex/task-brief-template.md` or `.codex/exec-plan-template.md` when the task size requires it.
+- For non-trivial work, look for the repo's current planning surface before assuming a template path.
+- Prefer `docs/PLANS.md` when the repo uses the minimal bootstrap scaffold; otherwise reuse an existing `docs/exec-plans/` layout if the repo already has one.
 
 2. Read durable repo knowledge before code.
 - Check `docs/architecture/`, `docs/feature-notes/`, `docs/decisions/`, `docs/debugging/`, and active exec plans when relevant.
@@ -37,7 +37,7 @@ Reduce implementation mistakes by turning ambiguous work into a repo-aware brief
 
 5. Plan before editing when needed.
 - Medium task: write a brief plan in the response.
-- Large or ambiguous task: create or update a live plan in `docs/exec-plans/active/`.
+- Large or ambiguous task: create or update a live plan in the repo's planning surface, typically `docs/PLANS.md` or an existing `docs/exec-plans/active/` location.
 - Do not start large work without an explicit plan.
 
 6. Only then start implementation.

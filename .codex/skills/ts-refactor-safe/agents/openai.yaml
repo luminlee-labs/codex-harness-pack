@@ -1,4 +1,7 @@
 interface:
   display_name: "TS Refactor Safe"
-  short_description: "Refactor TypeScript with explicit boundaries and safety checks"
-  default_prompt: "Map the TypeScript boundary first, make a scoped refactor, run verification, and report breaking-risk areas."
+  short_description: "Deprecated compatibility copy. Prefer `.agents/skills/ts-refactor-safe`."
+  default_prompt: "This is a deprecated compatibility copy. Prefer `.agents/skills/ts-refactor-safe`. Map the TypeScript boundary first, make a scoped refactor, run verification, and report breaking-risk areas."
+
+policy:
+  allow_implicit_invocation: true
