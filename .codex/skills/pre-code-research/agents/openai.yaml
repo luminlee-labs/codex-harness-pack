@@ -1,4 +1,7 @@
 interface:
   display_name: "Pre-Code Research"
-  short_description: "Research before coding, persist reports, and re-check staleness"
-  default_prompt: "Before coding, check existing repository research docs by reading YAML frontmatter first, perform official/community architecture research, write or refresh a repository report, and provide implementation guidance."
+  short_description: "Deprecated compatibility copy. Prefer `.agents/skills/pre-code-research`."
+  default_prompt: "This is a deprecated compatibility copy. Prefer `.agents/skills/pre-code-research`. Before coding, check existing repository research docs by reading YAML frontmatter first, perform official/community architecture research, write or refresh a repository report, and provide implementation guidance."
+
+policy:
+  allow_implicit_invocation: false

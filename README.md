@@ -76,6 +76,7 @@ Each skill includes `agents/openai.yaml` metadata and invocation policy.
 ## Compatibility note
 
 `.codex/skills/` is kept as a **deprecated compatibility layer** for now.
+Deprecated copies should mirror the primary `.agents/skills/` behavior and include a visible redirect notice so users do not encounter conflicting instructions.
 
 Primary discovery path is now:
 
@@ -105,11 +106,7 @@ Core principles:
 
 For official references, use:
 
-- [https://developers.openai.com/codex](https://developers.openai.com/codex)
-- [https://developers.openai.com/codex/config-basic](https://developers.openai.com/codex/config-basic)
-- [https://developers.openai.com/codex/guides/agents-md](https://developers.openai.com/codex/guides/agents-md)
-- [https://developers.openai.com/codex/skills](https://developers.openai.com/codex/skills)
-- [https://developers.openai.com/codex/workflows](https://developers.openai.com/codex/workflows)
+Official references are listed above in the Overview section.
 
 <a id="简体中文"></a>
 ## 简体中文
@@ -126,8 +123,4 @@ For official references, use:
 
 官方文档：
 
-- [Codex 首页](https://developers.openai.com/codex)
-- [Config Basics](https://developers.openai.com/codex/config-basic)
-- [AGENTS.md 指南](https://developers.openai.com/codex/guides/agents-md)
-- [Skills 指南](https://developers.openai.com/codex/skills)
-- [Workflows 指南](https://developers.openai.com/codex/workflows)
+官方参考链接见上方 Overview 的 References。

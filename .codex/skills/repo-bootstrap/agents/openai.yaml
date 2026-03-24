@@ -1,4 +1,7 @@
 interface:
   display_name: "Repo Bootstrap"
-  short_description: "Audit a repo and initialize missing Codex workflow scaffolding"
-  default_prompt: "Check for .codex/repo-bootstrap.yaml first. Determine the bootstrap input state as one of missing, valid, stale, schema_mismatch, partial, or failed. Report why bootstrap triggered, choose the matching transition path, initialize only the missing workflow scaffolding, create project .codex/config.toml when needed, keep docs/STATUS.md current, write the marker when the result is valid, and report created, refreshed, skipped, untouched, partial, or failed outputs."
+  short_description: "Deprecated compatibility copy. Prefer `.agents/skills/repo-bootstrap` for the current minimal bootstrap workflow."
+  default_prompt: "This is a deprecated compatibility copy. Prefer `.agents/skills/repo-bootstrap`. Check for `.codex/repo-bootstrap.yaml`, determine the bootstrap input state, initialize only the minimal missing workflow scaffolding (`AGENTS.md`, `.codex/config.toml`, `docs/code_review.md`, `docs/PLANS.md`, `.codex/repo-bootstrap.yaml`) unless the repo already uses a richer layout, and report created, refreshed, skipped, untouched, partial, or failed outputs."
+
+policy:
+  allow_implicit_invocation: false

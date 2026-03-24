@@ -11,6 +11,7 @@ This repository is an official-aligned Codex workflow pack. Keep contributions f
 - documentation that explains how the pack works
 
 Do not add runtime-only files such as auth state, session history, logs, sqlite state, or caches.
+If you add new local-only artifacts during development, update `.gitignore` in the same change.
 
 ## Directory Structure
 
@@ -41,6 +42,7 @@ When editing a skill:
 - prefer stable, reusable workflows over project-specific instructions
 - preserve `metadata.version` in the SKILL.md frontmatter
 - add or update `agents/openai.yaml` for invocation policy if needed
+- keep deprecated compatibility copies aligned with the primary `.agents/skills/` behavior
 - update related bootstrap templates if behavior changes
 
 ## OpenAI Official References

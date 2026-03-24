@@ -1,5 +1,13 @@
 .idea/
+.vscode/
 .DS_Store
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
 
 .codex/auth.json
 .codex/history.jsonl

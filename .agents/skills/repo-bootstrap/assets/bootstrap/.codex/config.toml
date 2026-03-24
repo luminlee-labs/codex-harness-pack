@@ -1,6 +1,2 @@
-developer_instructions = """
-Use the nearest `AGENTS.md` as the operational map.
-For non-trivial work, read `.codex/system-workflow.md`.
-Keep durable facts in `docs/` and reusable workflows in `.agents/skills/`.
-Check `.codex/repo-bootstrap.yaml` before reinitializing workflow scaffolding.
-"""
+# Repository-level Codex config overrides go here when the repo needs them.
+# Keep durable workflow guidance in `AGENTS.md`, not in `config.toml`.
