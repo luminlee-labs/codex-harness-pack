@@ -1,0 +1,6 @@
+interface:
+  display_name: "Research Before Code"
+  short_description: "Explore repository structure, existing docs, and implementation paths before coding. Use for unfamiliar repos or ambiguous tasks."
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,6 @@
+interface:
+  display_name: "TypeScript Safe Refactor"
+  short_description: "Perform TypeScript/TSX refactors with boundary mapping, scoped edits, and post-change verification."
+
+policy:
+  allow_implicit_invocation: true

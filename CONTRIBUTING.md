@@ -2,13 +2,28 @@
 
 ## Scope
 
-This repository is a minimal global Codex pack. Keep contributions focused on:
+This repository is an official-aligned Codex workflow pack. Keep contributions focused on:
 
-- `~/.codex/config.toml` global behavior
-- `~/.codex/skills/` reusable workflow skills
+- `~/.codex/config.toml` — user-level configuration
+- `~/.codex/AGENTS.md` — durable global working agreements
+- `.agents/skills/` — reusable workflow skills (official discovery path)
+- `.codex/templates/` — bootstrap scaffold templates
 - documentation that explains how the pack works
 
-Do not add runtime-only user files such as auth state, session history, logs, or caches.
+Do not add runtime-only files such as auth state, session history, logs, sqlite state, or caches.
+
+## Directory Structure
+
+```
+~/.codex/
+  config.toml       user-level config
+  AGENTS.md         global working agreements
+
+~/.agents/skills/  official skills discovery path (primary)
+.codex/skills/     deprecated compatibility layer (may be removed in v2)
+
+.codex/templates/  bootstrap scaffold templates
+```
 
 ## Workflow
 
@@ -22,10 +37,21 @@ Do not add runtime-only user files such as auth state, session history, logs, or
 
 When editing a skill:
 
-- keep the trigger boundary clear
+- keep the trigger boundary clear and concise
 - prefer stable, reusable workflows over project-specific instructions
-- preserve version metadata
-- update related bootstrap assets if behavior changes
+- preserve `metadata.version` in the SKILL.md frontmatter
+- add or update `agents/openai.yaml` for invocation policy if needed
+- update related bootstrap templates if behavior changes
+
+## OpenAI Official References
+
+When adding or changing behavior, cite official Codex documentation:
+
+- Config: https://developers.openai.com/codex/config-basic
+- AGENTS.md: https://developers.openai.com/codex/guides/agents-md
+- Skills: https://developers.openai.com/codex/skills
+- Customization: https://developers.openai.com/codex/concepts/customization
+- Workflows: https://developers.openai.com/codex/workflows
 
 ## Pull Requests
 
@@ -36,6 +62,7 @@ A good PR should include:
 - constraints
 - done when
 - verification steps
+- link to relevant official documentation
 
 ## Style
 

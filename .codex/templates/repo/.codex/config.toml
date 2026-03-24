@@ -1,0 +1,6 @@
+developer_instructions = """
+Use the nearest `AGENTS.md` as the operational map.
+For non-trivial work, read `.codex/system-workflow.md`.
+Keep durable facts in `docs/` and reusable workflows in `.agents/skills/`.
+Check `.codex/repo-bootstrap.yaml` before reinitializing workflow scaffolding.
+"""
