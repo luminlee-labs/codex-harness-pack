@@ -1,7 +1,7 @@
 ---
 name: ts-refactor-safe
 metadata:
-  version: "1.1.0"
+  version: "1.2.0"
 description: Perform TypeScript and TSX refactors with explicit boundary mapping, scoped edits, and post-change verification. Use when renaming or moving modules, tightening or reshaping types, changing public interfaces, updating imports, splitting files, or refactoring code where breakage risk is non-trivial.
 ---
 

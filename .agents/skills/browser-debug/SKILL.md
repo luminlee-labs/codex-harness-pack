@@ -1,7 +1,7 @@
 ---
 name: browser-debug
 metadata:
-  version: "1.1.0"
+  version: "1.2.0"
 description: Reproduce, diagnose, fix, and verify frontend and browser-facing issues with an evidence-first loop. Use when pages fail to render, interactions break, console errors appear, network requests fail, visual regressions appear, hydration/runtime issues occur, or a user asks to debug a UI flow before claiming the fix works.
 ---
 

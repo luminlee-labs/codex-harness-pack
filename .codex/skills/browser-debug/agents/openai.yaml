@@ -1,4 +1,7 @@
 interface:
   display_name: "Browser Debug"
-  short_description: "Debug browser issues with reproduce-evidence-fix-verify workflow"
-  default_prompt: "Reproduce the browser or frontend issue, capture evidence, apply the smallest verifiable fix, rerun the flow, and report root cause plus residual risk."
+  short_description: "Deprecated compatibility copy. Prefer `.agents/skills/browser-debug`."
+  default_prompt: "This is a deprecated compatibility copy. Prefer `.agents/skills/browser-debug`. Reproduce the browser or frontend issue, capture evidence, apply the smallest verifiable fix, rerun the flow, and report root cause plus residual risk."
+
+policy:
+  allow_implicit_invocation: true

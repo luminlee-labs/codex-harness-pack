@@ -17,7 +17,7 @@ Source: [Prompting](https://developers.openai.com/codex/prompting)
 
 - **Small task**: implement directly.
 - **Medium task**: write a plan before editing.
-- **Large or ambiguous task**: create or update a live plan in `docs/exec-plans/active/`. Never start large work without an explicit plan.
+- **Large or ambiguous task**: use the repo's planning surface, typically `docs/PLANS.md` or an existing `docs/exec-plans/` location. Never start large work without an explicit plan.
 
 Source: [Prompting](https://developers.openai.com/codex/prompting) — "break it into smaller, focused steps"
 

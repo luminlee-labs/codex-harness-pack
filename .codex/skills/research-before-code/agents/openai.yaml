@@ -1,4 +1,7 @@
 interface:
   display_name: "Research Before Code"
-  short_description: "Read repo knowledge, plan first, then shrink the coding surface"
-  default_prompt: "Read the repo map and relevant docs first, produce a short implementation brief or plan, and only then start coding."
+  short_description: "Deprecated compatibility copy. Prefer `.agents/skills/research-before-code`."
+  default_prompt: "This is a deprecated compatibility copy. Prefer `.agents/skills/research-before-code`. Read the repo map and relevant docs first, produce a short implementation brief or plan, and only then start coding."
+
+policy:
+  allow_implicit_invocation: true
