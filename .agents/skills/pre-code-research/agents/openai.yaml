@@ -1,0 +1,6 @@
+interface:
+  display_name: "Pre-Code Research"
+  short_description: "Architecture-first technical research with official docs, community pitfalls, and implementation guidance. Use before major implementation."
+
+policy:
+  allow_implicit_invocation: false

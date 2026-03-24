@@ -1,0 +1,6 @@
+interface:
+  display_name: "Browser Debug"
+  short_description: "Reproduce, diagnose, fix, and verify frontend and browser-facing issues with evidence-first loop."
+
+policy:
+  allow_implicit_invocation: true
